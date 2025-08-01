@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝐓・𝐄𝐌𝐏𝐈𝐑𝐄
+</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <img src="/static/img/logo.gif" alt="Logo" class="logo">
+        <h1>𝐓・𝐄𝐌𝐏𝐈𝐑𝐄 امتحان
+</h1>
+        <form action="/submit" method="POST">
+         {% for q in questions %}
+<div class="question">
+    <p>السؤال {{ q.id }}: {{ q.question }}</p>
+    <div class="options">
+        {% for option in q.options %}
+        <label>
+            <input type="radio" name="q{{ q.id }}" value="{{ loop.index0 }}" required>
+            {{ option }}
+        </label>
+        {% endfor %}
+
+                </div>
+            </div>
+            {% endfor %}
+            <button type="submit" class="submit-btn">إرسال الإجابات</button>
+        </form>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
