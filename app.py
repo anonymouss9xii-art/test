@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request
-import os
 app = Flask(__name__)
 
 
@@ -256,4 +255,6 @@ def submit():
     return render_template('result.html', score=score, total=len(questions))
 
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 8000)))
+    from os import getenv
+    app.run(host='0.0.0.0', port=int(getenv('PORT', 5000)))
+
