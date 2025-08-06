@@ -538,7 +538,7 @@ questions = [
 
 @app.route('/')
 def exam():
-    selected_questions = random.sample(questions, 5)
+    selected_questions = random.sample(questions, 20)
     session['questions'] = selected_questions  # نخزن الأسئلة في الجلسة
     return render_template('exam.html', questions=selected_questions)
 
