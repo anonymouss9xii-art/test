@@ -16,7 +16,7 @@
         <form action="/submit" method="POST">
          {% for q in questions %}
 <div class="question">
-    <p>السؤال {{ q.id }}: {{ q.question }}</p>
+<p>السؤال {{ loop.index }}: {{ q.question }}</p>
     <div class="options">
         {% for option in q.options %}
         <label>

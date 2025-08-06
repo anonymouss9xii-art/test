@@ -10,7 +10,27 @@
 <body>
     <div class="container">
         <img src="/static/img/logo.gif" alt="Logo" class="logo">
-        <h1>تم الانتهاء من الاختبار</h1>
+        <h1>احسنت تم الانتهاء من الاختبار</h1>
+         <p class="result">لقد حصلت على  : {{ score }} / {{ total }}</p> 
+
+        {% if wrong_answers %}
+    <h2>الأسئلة التي أخطأت بها:</h2>
+    {% for wrong in wrong_answers %}
+        <div class="question">
+            <p><strong>السؤال:</strong> {{ wrong.question }}</p>
+            <p><strong>إجابتك:</strong> 
+                {% if wrong.selected is not none %}
+                    {{ wrong.options[wrong.selected] }}
+                {% else %}
+                    <em>لم يتم اختيار إجابة</em>
+                {% endif %}
+            </p>
+            <p><strong>الإجابة الصحيحة:</strong> {{ wrong.options[wrong.correct] }}</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>أحسنت! لم تخطئ في أي سؤال 🎉</p>
+{% endif %}
         <p class="result">لقد حصلت على: {{ score }} / {{ total }}</p>
         <a href="/" class="retry-btn">إعادة الاختبار</a>
     </div>
