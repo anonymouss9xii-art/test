@@ -7,13 +7,8 @@ app.secret_key = 'supersecretkey'  # ضروري لتفعيل الجلسة
 
 
 
-
 # جميع الأسئلة + خيارات + الجواب الصحيح
 questions = [
-
-
-
-
     {
         'id': 1,
         'question': "أثناء قيادتك في المدينة، شاهدت مجموعة مسلحة توقف سيارة إسعاف وتطلب من المسعف علاج أحدهم تحت تهديد السلاح. ما هي المخالفة؟",
@@ -539,12 +534,25 @@ questions = [
 @app.route('/')
 def exam():
     selected_questions = random.sample(questions, 20)
-    session['questions'] = selected_questions  # نخزن الأسئلة في الجلسة
+
+    # احفظ فقط الـ IDs في الجلسة لتقليل الحجم
+    session['question_ids'] = [q['id'] for q in selected_questions]
+
     return render_template('exam.html', questions=selected_questions)
+
+
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    selected_questions = session.get('questions', [])
+    question_ids = session.get('question_ids')
+
+    if not question_ids:
+        print("تحذير: session['question_ids'] فارغة!")
+        return redirect(url_for('exam'))
+
+    # استخراج الأسئلة الأصلية بناءً على ID
+    selected_questions = [q for q in questions if q['id'] in question_ids]
+
     score = 0
     wrong_answers = []
 
@@ -562,7 +570,6 @@ def submit():
             })
 
     return render_template('result.html', score=score, total=len(selected_questions), wrong_answers=wrong_answers)
-
 
 if __name__ == '__main__':
     from os import getenv
