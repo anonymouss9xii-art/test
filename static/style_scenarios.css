@@ -1,0 +1,194 @@
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background: linear-gradient(135deg, #000000, #ffee00,#ddba46);
+    color: #ffffff;
+    margin: 0;
+    padding: 20px;
+    direction: rtl;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: rgba(0, 0, 0, 0.85);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    border: 2px solid #f0d878;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(240, 216, 120, 0.3);
+}
+
+.hidden {
+    display: none;
+}
+
+
+h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #f0d878;
+    font-size: 2.5em;
+}
+
+.scenario-box {
+    background-color: #242323;
+    border: 1px solid #f0d87888;
+    border-radius: 30px;
+    padding: 35px;
+    margin-bottom: 25px;
+    box-shadow: 0 0 15px rgb(241, 177, 0);
+    transition: transform 0.3s ease;
+}
+
+.scenario-box:hover {
+    transform: scale(1.02);
+}
+
+
+
+
+
+.retry-btn {
+    display: inline-block;
+    text-align: center;
+    margin-top: 30px;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    color: #ffffff;
+    border: 2px solid #e0bb24;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.retry-btn:hover {
+    background-color: #a88d1e;
+    color: #121212;
+}
+
+.scenario-card {
+    background-color: transparent;
+    width: 100%;
+    height: auto;
+    perspective: 1000px;
+}
+
+.card-front, .card-back {
+    background-color: #1e1e1e;
+    color: rgb(255, 255, 255);
+    border: 1px solid gold;
+    border-radius: 12px;
+    padding: 20px;
+    transition: transform 0.8s;
+    backface-visibility: hidden;
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 200px;
+}
+
+.card-front {
+    z-index: 2;
+    transform: rotateY(0deg);
+}
+
+.card-back {
+    transform: rotateY(180deg);
+}
+
+.scenario-box {
+    position: relative;
+    margin-bottom: 40px;
+    height: 220px;
+}
+
+.scenario-card:hover .card-front {
+    transform: rotateY(-180deg);
+}
+
+.scenario-card:hover .card-back {
+    transform: rotateY(0deg);
+}
+
+.logo {
+    display: block;
+    margin: 10px auto 30px;
+    width: 120px;
+    height: auto;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.9; }
+}
+
+.scenario-header {
+    font-size: 20px;
+    color: gold;
+    margin-bottom: 8px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.audio-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    transition: transform 0.2s ease;
+}
+
+.audio-btn:hover {
+    transform: scale(1.2);
+}
+
+
+/* زر التبديل */
+.theme-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #222;
+    color: gold;
+    padding: 8px 14px;
+    border: 2px solid gold;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Cairo', sans-serif;
+    z-index: 999;
+    transition: all 0.3s ease-in-out;
+}
+.theme-btn:hover {
+    background-color: gold;
+    color: black;
+}
+
+/* الوضع الليلي */
+body.dark-mode {
+    
+    background:rgba(0, 0, 0, 0.5);
+    color: #000000;
+}
+
+body.dark-mode .scenario-box,
+body.dark-mode .scenario-card {
+    background-color: #1e1e1e;
+    border-color: gold;
+}
+
+body.dark-mode .card-back,
+body.dark-mode .card-front {
+    background-color: #202020;
+    color: #fff;
+}
+
+body.dark-mode .glow-title {
+    color: gold;
+    text-shadow: 0 0 10px gold;
+}

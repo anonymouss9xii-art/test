@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تسجيل الدخول للامتحان</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_login.css') }}">
+</head>
+<body>
+    <img src="{{ url_for('static', filename='img/logo.gif') }}" class="logo">
+
+    <div class="login-container">
+        <h2>تسجيل معلومات المتقدم</h2>
+        <form method="POST" action="{{ url_for('start_exam') }}">
+            <label>اسم المتقدم:</label>
+            <input type="text" name="candidate_name" required>
+            
+            <label>اسم المراقب:</label>
+            <input type="text" name="supervisor_name" required>
+
+            <button type="submit">بدء الامتحان</button>
+        </form>
+    </div>
+    
+</body>
+</html>

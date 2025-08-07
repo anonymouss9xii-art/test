@@ -203,3 +203,50 @@ input:focus {
         padding: 10px 20px;
     }
 }
+
+/* زر الوضع الليلي */
+.theme-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #222;
+    color: gold;
+    padding: 8px 14px;
+    border: 2px solid gold;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Cairo', sans-serif;
+    z-index: 999;
+    transition: all 0.3s ease-in-out;
+}
+.theme-btn:hover {
+    background-color: gold;
+    color: black;
+}
+
+/* الوضع الليلي */
+body.dark-mode {
+    background-color: #121212;
+    color: #f0f0f0;
+}
+
+body.dark-mode .box,
+body.dark-mode .question,
+body.dark-mode .result-box {
+    background-color: #1e1e1e;
+    border-color: gold;
+    color: white;
+}
+
+body.dark-mode .glow-title {
+    color: gold;
+    text-shadow: 0 0 10px gold;
+}
+.stats-box, .badge-box {
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 2px solid gold;
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 20px;
+    text-align: right;
+}

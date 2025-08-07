@@ -10,30 +10,61 @@
 <body>
     <div class="container">
         <img src="/static/img/logo.gif" alt="Logo" class="logo">
-        <h1>احسنت تم الانتهاء من الاختبار</h1>
-         <p class="result">لقد حصلت على  : {{ score }} / {{ total }}</p> 
 
-        {% if wrong_answers %}
-    <h2>الأسئلة التي أخطأت بها:</h2>
-    {% for wrong in wrong_answers %}
-        <div class="question">
-            <p><strong>السؤال:</strong> {{ wrong.question }}</p>
-            <p><strong>إجابتك:</strong> 
-                {% if wrong.selected is not none %}
-                    {{ wrong.options[wrong.selected] }}
-                {% else %}
-                    <em>لم يتم اختيار إجابة</em>
-                {% endif %}
-            </p>
-            <p><strong>الإجابة الصحيحة:</strong> {{ wrong.options[wrong.correct] }}</p>
-        </div>
-    {% endfor %}
-{% else %}
-    <p>أحسنت! لم تخطئ في أي سؤال 🎉</p>
-{% endif %}
+        <h1>أحسنت! تم الانتهاء من الاختبار</h1>
         <p class="result">لقد حصلت على: {{ score }} / {{ total }}</p>
-        <a href="/" class="retry-btn">إعادة الاختبار</a>
+
+        <!-- قسم الأخطاء -->
+        {% if wrong_answers %}
+            <h2>الأسئلة التي أخطأت بها:</h2>
+            {% for wrong in wrong_answers %}
+                <div class="question">
+                    <p><strong>السؤال:</strong> {{ wrong.question }}</p>
+                    <p style="color: #eb2b00;"><strong>إجابتك:</strong>
+                        {% if wrong.selected is not none %}
+                            {{ wrong.options[wrong.selected] }}
+                        {% else %}
+                            <em>لم يتم اختيار إجابة</em>
+                        {% endif %}
+                    </p>
+                    <p style="color: #3cff00;"><strong>الإجابة الصحيحة:</strong> {{ wrong.options[wrong.correct] }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>أحسنت! لم تخطئ في أي سؤال 🎉</p>
+        {% endif %}
+
+        <!-- قسم الشارات -->
+        <div class="badge-box">
+            <h2>🏅 إنجازك</h2>
+            {% if correct == total %}
+                <p>🎉 ممتاز! حصلت على شارة "العبقري الذهبي" 🥇</p>
+            {% elif correct >= total * 0.8 %}
+                <p>👏 رائع! حصلت على شارة "الخبير" 🥈</p>
+            {% elif correct >= total * 0.5 %}
+                <p>👍 جيد! حصلت على شارة "المجتهد" 🥉</p>
+            {% else %}
+                <p>😅 استمر بالمحاولة لتحصل على شارة!</p>
+            {% endif %}
+        </div>
+
+        <!-- قسم الإحصائيات -->
+        <div class="stats-box">
+            <h2>📊 الإحصائيات</h2>
+            <p>عدد الأسئلة: {{ total }}</p>
+            <p>عدد الإجابات الصحيحة ✅: {{ correct }}</p>
+            <p>عدد الأخطاء ❌: {{ total - correct }}</p>
+            <p>نسبة النجاح: {{ (correct / total * 100)|round(2) }}%</p>
+        </div>
+        <!-- أزرار -->
+        <div class="buttons">
+            <a href="/scenarios" class="retry-btn"> السيناريوهات المخصصة</a>
+            <a href="/" class="retry-btn">🔄 إعادة الاختبار</a>
+             <a href="/stats" class="retry-btn">📊 عرض الإحصائيات</a>
+
+        </div>
     </div>
+
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

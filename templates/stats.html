@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>📊 إحصائيات المستخدمين</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_stats.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>📋 قائمة نتائج المستخدمين</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>اسم المتقدِّم</th>
+                    <th>المراقب</th>
+                    <th>النتيجة</th>
+                    <th>المدة (ثانية)</th>
+                    <th>التاريخ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user[0] }}</td>
+                    <td>{{ user[1] }}</td>
+                    <td>{{ user[2] }}</td>
+                    <td>{{ user[3] }}</td>
+                    <td>{{ user[4] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/" class="back-btn">🔙 العودة للاختبار</a>
+    </div>
+</body>
+</html>

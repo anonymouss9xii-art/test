@@ -1,0 +1,104 @@
+/* خلفية متحركة */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Cairo', sans-serif;
+    background: linear-gradient(135deg, #a58c00, #000000,#ddba46);
+    color: #FFD700; /* ذهبي */
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+/* نجوم متحركة */
+
+
+@keyframes moveStars {
+    from { background-position: 0 0; }
+    to { background-position: 10000px 10000px; }
+}
+
+/* الشعار */
+.logo {
+    display: block;
+    margin: 20px auto 0;
+    height: 100px;
+    z-index: 1;
+    position: relative;
+}
+
+/* الحاوية */
+.login-container {
+    background: rgba(0, 0, 0, 0.6); /* شفاف */
+    border: 1px solid #FFD700;
+    border-radius: 20px;
+    padding: 30px 40px;
+    width: 360px;
+    max-width: 90%;
+    margin: 40px auto;
+    text-align: center;
+    box-shadow: 0 0 30px #FFD700;
+    z-index: 1;
+    position: relative;
+    animation: fadeIn 1.5s ease-in;
+}
+
+/* عناصر داخل الحاوية */
+.login-container h2 {
+    margin-bottom: 25px;
+    color: #FFD700;
+}
+
+.login-container label {
+    display: block;
+    text-align: right;
+    margin-bottom: 5px;
+    color: #FFD700;
+    font-size: 16px;
+}
+
+.login-container input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #FFD700;
+    border-radius: 10px;
+    background-color: #5a5a5a;
+    color: #FFD700;
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+
+.login-container input[type="text"]:focus {
+    outline: none;
+    box-shadow: 0 0 10px #FFD700;
+}
+
+.login-container button {
+    background-color: #FFD700;
+    color: #000;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-container button:hover {
+    background-color: #000;
+    color: #FFD700;
+    border: 1px solid #FFD700;
+    transform: scale(1.05);
+}
+
+/* تأثير دخول */
+@keyframes fadeIn {
+    0% {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

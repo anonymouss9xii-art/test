@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_scenarios.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="glow-title"> سيناريوهات-𝐓・𝐄𝐌𝐏𝐈𝐑𝐄 📖</h1>
+        <button id="toggle-theme" class="theme-btn">🌙 الوضع الليلي</button>
+
+        <img src="/static/img/logo.gif" alt="Logo" class="logo">
+
+        {% for s in scenarios %}
+<div class="scenario-box">
+    <!-- زر الصوت خارج البطاقة -->
+    <div class="scenario-header">
+         {{ s.title }}
+        <button class="audio-btn" onclick="speakText(`{{ s.description | escape }}`)">🔊</button>
+    </div>
+
+    <div class="scenario-card">
+        <div class="card-front">
+            <p>🎬{{ s.description }}</p>
+        </div>
+        <div class="card-back">
+            <h4>الجواب</h4>
+            <p>{{ s.answer }}</p>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+        <a href="/" class="retry-btn">🔙 العودة إلى الصفحة الرئيسية</a>
+    </div>
+
+    <script>
+        function toggleAnswer(btn) {
+            const answerBox = btn.nextElementSibling;
+            btn.classList.add('fade-out');
+            setTimeout(() => {
+                btn.style.display = 'none';
+                answerBox.classList.remove('hidden');
+                answerBox.classList.add('fade-in');
+            }, 300);
+        }
+function revealAnswer(container) {
+    const answerBox = container.querySelector('.answer');
+    const title = container.querySelector('.answer-title');
+    title.style.display = 'none';
+    answerBox.classList.remove('hidden');
+    answerBox.classList.add('fade-in');
+}
+function speakText(text) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'ar-SA';
+    speechSynthesis.speak(utterance);
+}
+//صوت شوووح
+const flipSound = new Audio('/static/sounds/flip.mp3');
+
+document.querySelectorAll('.scenario-card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+        flipSound.currentTime = 0;
+        flipSound.play();
+    });
+});
+
+ // تشغيل الوضع الليلي من localStorage
+    if (localStorage.getItem("dark-mode") === "true") {
+        document.body.classList.add("dark-mode");
+    }
+
+    const toggleBtn = document.getElementById("toggle-theme");
+    toggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+
+        // حفظ الوضع في localStorage
+        const isDark = document.body.classList.contains("dark-mode");
+        localStorage.setItem("dark-mode", isDark);
+    });
+
+
+    </script>
+</body>
+</html>
