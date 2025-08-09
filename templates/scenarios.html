@@ -58,15 +58,8 @@ function speakText(text) {
     utterance.lang = 'ar-SA';
     speechSynthesis.speak(utterance);
 }
-//صوت شوووح
-const flipSound = new Audio('/static/sounds/flip.mp3');
 
-document.querySelectorAll('.scenario-card').forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        flipSound.currentTime = 0;
-        flipSound.play();
-    });
-});
+
 
  // تشغيل الوضع الليلي من localStorage
     if (localStorage.getItem("dark-mode") === "true") {

@@ -44,7 +44,7 @@ def start_exam():
     session['supervisor_name'] = request.form['supervisor_name']
     session['start_time'] = time.time()
 
-    selected_questions = random.sample(questions, 10)
+    selected_questions = random.sample(questions, 15)
     session['question_ids'] = [q['id'] for q in selected_questions]
 
     return render_template('exam.html', questions=selected_questions)
