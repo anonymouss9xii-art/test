@@ -47,8 +47,6 @@ h1 {
 
 
 
-
-
 .retry-btn {
     display: inline-block;
     text-align: center;
@@ -191,4 +189,17 @@ body.dark-mode .card-front {
 body.dark-mode .glow-title {
     color: gold;
     text-shadow: 0 0 10px gold;
+}
+
+.stats-btn {
+    display: inline-block;
+    text-align: center;
+    margin-top: 30px;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    color: #ffffff;
+    border: 2px solid #e0bb24;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: 0.3s ease;
 }
