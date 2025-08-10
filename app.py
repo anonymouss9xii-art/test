@@ -10,6 +10,9 @@ app.secret_key = 'supersecretkey'  # ضروري لتفعيل الجلسة
 
 DB_PATH = 'data/exam_results.db'
 
+# تفعيل وضع التصحيح
+#app.config['DEBUG'] = True
+
 # إنشاء الجدول إذا لم يكن موجودًا
 conn = sqlite3.connect(DB_PATH)
 c = conn.cursor()
@@ -114,13 +117,14 @@ def stats():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("""
-        SELECT candidate_name, supervisor_name, score, duration, submitted_at
+        SELECT candidate_name, supervisor_name, score, duration, submitted_at, id
         FROM exam_results
         ORDER BY submitted_at DESC
     """)
     users = cursor.fetchall()
     conn.close()
     return render_template('stats.html', users=users)
+
 
 #تنظيف البيانات
 @app.route('/clear_results', methods=['POST'])
@@ -138,14 +142,46 @@ def clear_results():
     flash("✅ تم مسح جميع النتائج بنجاح!")
     return redirect(url_for('stats'))
 
+#حذف سطر 
+@app.route('/delete_result/<int:result_id>', methods=['POST'])
+def delete_result(result_id):
+    password = request.form.get('admin_password')
+    if password != ADMIN_PASSWORD:
+        flash("❌ كلمة السر الإدارية غير صحيحة!")
+        return redirect(url_for('stats'))
+
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    c.execute("DELETE FROM exam_results WHERE id = ?", (result_id,))
+    conn.commit()
+    conn.close()
+    flash("✅ تم حذف النتيجة المحددة!")
+    return redirect(url_for('stats'))
+
+
+@app.route('/delete_all_results/<string:candidate_name>', methods=['POST'])
+def delete_all_results(candidate_name):
+    password = request.form.get('admin_password')
+    if password != ADMIN_PASSWORD:
+        flash("❌ كلمة السر الإدارية غير صحيحة!")
+        return redirect(url_for('stats'))
+
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    c.execute("DELETE FROM exam_results WHERE candidate_name = ?", (candidate_name,))
+    conn.commit()
+    conn.close()
+    flash(f"✅ تم حذف جميع النتائج للمتقدم: {candidate_name}")
+    return redirect(url_for('stats'))
 
 
 
 if __name__ == '__main__':
     from os import getenv
+    app.run(debug=True) 
+
     app.run(host='0.0.0.0', port=int(getenv('PORT', 5000)))
-
-
+#app.run(debug=True) 
 
 
 

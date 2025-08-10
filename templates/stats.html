@@ -17,6 +17,7 @@
                     <th>النتيجة</th>
                     <th>المدة (ثانية)</th>
                     <th>التاريخ</th>
+                    <th>إجراءات</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,23 +28,37 @@
                     <td>{{ user[2] }}</td>
                     <td>{{ user[3] }}</td>
                     <td>{{ user[4] }}</td>
+                    <td>
+                        <!-- زر حذف سطر واحد -->
+                <form action="/delete_result/{{ user[5] }}" method="POST" style="display:inline;" 
+      onsubmit="return confirm('⚠ هل أنت متأكد من حذف هذه النتيجة؟')">
+    <input type="password" name="admin_password" placeholder="كلمة السر الإدارية" required>
+    <button type="submit">🗑 حذف سطر</button>
+</form>
+                        </form>
+                        </form>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+
+        <!-- زر حذف كل النتائج من الجدول -->
         <form action="/clear_results" method="POST" onsubmit="return confirm('⚠ هل أنت متأكد أنك تريد مسح جميع النتائج؟')">
-    <input type="password" name="admin_password" placeholder="كلمة السر الإدارية" required>
-    <button type="submit" class="clear-btn">🗑 مسح جميع النتائج</button>
-</form>
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class="flash-messages">
-      {% for message in messages %}
-        <li>{{ message }}</li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
+            <input type="password" name="admin_password" placeholder="كلمة السر الإدارية" required>
+            <button type="submit" class="clear-btn">🗑 مسح جميع النتائج</button>
+        </form>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class="flash-messages">
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
         <a href="/" class="back-btn">🔙 العودة للصفحة الرئيسية</a>
         <a href="/scenarios" class="back-btn">السيناريوهات</a>
     </div>

@@ -9,7 +9,13 @@
 <body>
     <div class="container">
         <h1 class="glow-title"> سيناريوهات-𝐓・𝐄𝐌𝐏𝐈𝐑𝐄 📖</h1>
-        <button id="toggle-theme" class="theme-btn">🌙 الوضع الليلي</button>
+<!-- زر الوضع الليلي ثابت أعلى يسار -->
+<button id="toggle-theme" class="theme-btn" style="position: fixed; top: 20px; left: 20px;">🌙 الوضع الليلي</button>
+
+<!-- أزرار أخرى ضمن الحاوية -->
+<div style="margin-top: 60px; display: flex; gap: 10px; align-items: center;">
+  <button onclick="stopSpeaking()" class="theme-btn">🔇 إيقاف الصوت</button>
+</div>
 
         <img src="/static/img/logo.gif" alt="Logo" class="logo">
 
@@ -20,11 +26,17 @@
          {{ s.title }}
         <button class="audio-btn" onclick="speakText(`{{ s.description | escape }}`)">🔊</button>
     </div>
-
+        
     <div class="scenario-card">
         <div class="card-front">
             <p>🎬{{ s.description }}</p>
         </div>
+        <!-- أزرار صح وغلط -->
+           <div class="answer-buttons">
+    <button onclick="markAnswer(this, true)">✔️ صح</button>
+    <button onclick="markAnswer(this, false)">❌ غلط</button>
+</div>
+
         <div class="card-back">
             <h4>الجواب</h4>
             <p>{{ s.answer }}</p>
@@ -32,20 +44,21 @@
     </div>
 </div>
 {% endfor %}
-        <a href="/stats" class="stats-btn"> صفحة الاحصائيات</a>
+        <a href="/stats" class="retry-btn"> صفحة الاحصائيات</a>
         <a href="/" class="retry-btn">🔙 العودة إلى الصفحة الرئيسية</a>
     </div>
 
     <script>
-        function toggleAnswer(btn) {
-            const answerBox = btn.nextElementSibling;
-            btn.classList.add('fade-out');
-            setTimeout(() => {
-                btn.style.display = 'none';
-                answerBox.classList.remove('hidden');
-                answerBox.classList.add('fade-in');
-            }, 300);
-        }
+function toggleAnswer(btn) {
+    const answerBox = btn.nextElementSibling;
+    btn.classList.add('fade-out');
+    setTimeout(() => {
+        btn.style.display = 'none';
+        answerBox.classList.remove('hidden');
+        answerBox.classList.add('fade-in');
+    }, 300);
+}
+
 function revealAnswer(container) {
     const answerBox = container.querySelector('.answer');
     const title = container.querySelector('.answer-title');
@@ -53,29 +66,53 @@ function revealAnswer(container) {
     answerBox.classList.remove('hidden');
     answerBox.classList.add('fade-in');
 }
+
 function speakText(text) {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'ar-SA';
     speechSynthesis.speak(utterance);
 }
 
+// تشغيل الوضع الليلي من localStorage
+if (localStorage.getItem("dark-mode") === "true") {
+    document.body.classList.add("dark-mode");
+}
 
+const toggleBtn = document.getElementById("toggle-theme");
+toggleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
 
- // تشغيل الوضع الليلي من localStorage
-    if (localStorage.getItem("dark-mode") === "true") {
-        document.body.classList.add("dark-mode");
+    // حفظ الوضع في localStorage
+    const isDark = document.body.classList.contains("dark-mode");
+    localStorage.setItem("dark-mode", isDark);
+});
+
+function stopSpeaking() {
+    speechSynthesis.cancel();
+}
+
+function markAnswer(btn, isTrue) {
+    const parent = btn.parentElement;
+    const buttons = parent.querySelectorAll('button');
+    // تعطيل كل الأزرار بعد الضغط
+    buttons.forEach(b => b.disabled = true);
+
+    // تلوين الزر المضغوط فقط
+    if (isTrue) {
+        btn.classList.add('correct');  // أخضر
+    } else {
+        btn.classList.add('wrong');    // أحمر
     }
+}
 
-    const toggleBtn = document.getElementById("toggle-theme");
-    toggleBtn.addEventListener("click", () => {
-        document.body.classList.toggle("dark-mode");
-
-        // حفظ الوضع في localStorage
-        const isDark = document.body.classList.contains("dark-mode");
-        localStorage.setItem("dark-mode", isDark);
+// 🔹 تحريك الكرت عند الضغط بدل مرور الماوس
+// تحريك الكرت عند الضغط
+document.querySelectorAll('.scenario-card').forEach(card => {
+    card.addEventListener('click', () => {
+        card.classList.toggle('flipped');
     });
+});
+</script>
 
-
-    </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 
 body {
     font-family: 'Cairo', sans-serif;
-    background: linear-gradient(135deg, #000000, #ffee00,#ddba46);
+    background: linear-gradient(135deg, #000000, #ffee00,#ffee00);
     color: #ffffff;
     margin: 0;
     padding: 20px;
@@ -100,12 +100,11 @@ h1 {
     margin-bottom: 40px;
     height: 220px;
 }
-
-.scenario-card:hover .card-front {
+.scenario-card.flipped .card-front {
     transform: rotateY(-180deg);
 }
 
-.scenario-card:hover .card-back {
+.scenario-card.flipped .card-back {
     transform: rotateY(0deg);
 }
 
@@ -149,12 +148,11 @@ h1 {
 
 /* زر التبديل */
 .theme-btn {
-    position: fixed;
-    top: 20px;
-    left: 20px;
+    display: inline-block;
     background-color: #222;
     color: gold;
     padding: 8px 14px;
+    margin-left: 15px; 
     border: 2px solid gold;
     border-radius: 10px;
     cursor: pointer;
@@ -162,6 +160,7 @@ h1 {
     z-index: 999;
     transition: all 0.3s ease-in-out;
 }
+
 .theme-btn:hover {
     background-color: gold;
     color: black;
@@ -202,4 +201,43 @@ body.dark-mode .glow-title {
     border-radius: 30px;
     text-decoration: none;
     transition: 0.3s ease;
+}
+
+.answer-buttons button.correct {
+    background-color: #28a745; /* أخضر */
+    border-color: #28a745;
+    color: rgb(0, 0, 0);
+    border-radius: 5px; /* زاوية مدورة */
+    padding: 10px 20px; /* حجم أكبر للزر */
+    font-size: 16px; /* تكبير الخط */
+    transition: all 0.3s ease; /* تأثير عند التفاعل */
+}
+
+.answer-buttons button.correct:hover {
+    background-color: #218838; /* تعديل اللون عند التمرير */
+    border-color: #218838;
+    transform: scale(1.05); /* تأثير التكبير */
+}
+
+.answer-buttons button.wrong {
+    background-color: #dc3545; /* أحمر */
+    border-color: #dc3545;
+    color: rgb(0, 0, 0);
+    border-radius: 5px; /* زاوية مدورة */
+    padding: 10px 20px; /* حجم أكبر للزر */
+    font-size: 16px; /* تكبير الخط */
+    transition: all 0.3s ease; /* تأثير عند التفاعل */
+}
+
+.answer-buttons button.wrong:hover {
+    background-color: #c82333; /* تعديل اللون عند التمرير */
+    border-color: #c82333;
+    transform: scale(1.05); /* تأثير التكبير */
+}
+
+.answer-buttons button:disabled {
+    cursor: not-allowed; /* تغيير المؤشر عندما يكون الزر غير مفعل */
+    opacity: 0.6; /* تقليل الشفافية */
+    background-color: #6c757d; /* لون رمادي للزر غير المفعل */
+    border-color: #6c757d;
 }
