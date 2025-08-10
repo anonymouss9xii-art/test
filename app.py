@@ -7,11 +7,9 @@ from datetime import datetime
 app = Flask(__name__)
 ADMIN_PASSWORD = "1234!@#$"
 app.secret_key = 'supersecretkey'  # ضروري لتفعيل الجلسة
-
 DB_PATH = 'data/exam_results.db'
 
-# تفعيل وضع التصحيح
-#app.config['DEBUG'] = True
+
 
 # إنشاء الجدول إذا لم يكن موجودًا
 conn = sqlite3.connect(DB_PATH)
@@ -27,9 +25,10 @@ CREATE TABLE IF NOT EXISTS exam_results (
     submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
 ''')
+
 conn.commit()
 conn.close()
-
+#شيي 
 
 with open("data/questions.json", encoding="utf-8") as f:
     questions = json.load(f)
@@ -175,10 +174,5 @@ def delete_all_results(candidate_name):
 
 if __name__ == '__main__':
     from os import getenv
-    app.run(debug=True) 
-
     app.run(host='0.0.0.0', port=int(getenv('PORT', 5000)))
-#app.run(debug=True) 
-
-
 
