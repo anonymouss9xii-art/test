@@ -31,9 +31,6 @@ conn.commit()
 conn.close()
 
 
-
-
-
 with open("data/questions.json", encoding="utf-8") as f:
     questions = json.load(f)
 
